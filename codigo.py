@@ -12,6 +12,18 @@ def seleciona_oval():
     global ferramenta
     ferramenta = "oval"
 
+def escolhe_cor_borda():
+    global cor_borda
+    cor = colorchooser.askcolor(title="Escolha a cor da borda")[1]
+    if cor:  
+        cor_borda = cor
+
+def escolhe_cor_preenchimento():
+    global cor_preenchimento
+    cor = colorchooser.askcolor(title="Escolha a cor de preenchimento")[1]
+    if cor:  
+        cor_preenchimento = cor
+
 def marca_inicio(event):
     global ini_x, ini_y
     ini_x = event.x
