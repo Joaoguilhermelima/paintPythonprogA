@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import colorchooser
 
 def seleciona_linha():
     global ferramenta
@@ -14,13 +15,13 @@ def seleciona_oval():
 
 def escolhe_cor_borda():
     global cor_borda
-    cor = colorchooser.askcolor(title="Escolha a cor da borda")[1]
+    cor = colorchooser.askcolor(title = "Escolha a cor da borda")[1]
     if cor:  
         cor_borda = cor
 
 def escolhe_cor_preenchimento():
     global cor_preenchimento
-    cor = colorchooser.askcolor(title="Escolha a cor de preenchimento")[1]
+    cor = colorchooser.askcolor(title = "Escolha a cor de preenchimento")[1]
     if cor:  
         cor_preenchimento = cor
 
@@ -34,21 +35,21 @@ def atualiza_figura(event):
     canvas.delete("preview")
     
     if ferramenta == "linha":
-        canvas.create_line(ini_x, ini_y, event.x, event.y, tags = "preview")
+        canvas.create_line(ini_x, ini_y, event.x, event.y, fill = cor_borda, tags = "preview")
     elif ferramenta == "retangulo":
-        canvas.create_rectangle(ini_x, ini_y, event.x, event.y, tags = "preview")
+        canvas.create_rectangle(ini_x, ini_y, event.x, event.y, outline = cor_borda, fill = cor_preenchimento, tags = "preview")
     elif ferramenta == "oval":
-        canvas.create_oval(ini_x, ini_y, event.x, event.y, tags = "preview")
+        canvas.create_oval(ini_x, ini_y, event.x, event.y, outline = cor_borda, fill = cor_preenchimento, tags = "preview")
 
 def atualiza_fim(event):
    canvas.delete("preview")
 
    if ferramenta == "linha":
-       canvas.create_line(ini_x, ini_y, event.x, event.y)
+       canvas.create_line(ini_x, ini_y, event.x, event.y, fill = cor_borda)
    elif ferramenta == "retangulo":
-       canvas.create_rectangle(ini_x, ini_y, event.x, event.y)
+       canvas.create_rectangle(ini_x, ini_y, event.x, event.y, outline = cor_borda, fill = cor_preenchimento)
    elif ferramenta == "oval":
-       canvas.create_oval(ini_x, ini_y, event.x, event.y)
+       canvas.create_oval(ini_x, ini_y, event.x, event.y, outline = cor_borda, fill = cor_preenchimento)
 
 root = tk.Tk()
 
@@ -60,6 +61,8 @@ frame.pack()
 tk.Button(frame, text = "Linha", command = seleciona_linha).pack(side = tk.LEFT)
 tk.Button(frame, text = "Retângulo", command = seleciona_retangulo).pack(side = tk.LEFT)
 tk.Button(frame, text = "Oval", command = seleciona_oval).pack(side = tk.LEFT)
+tk.Button(frame, text = "Cor da borda", command = escolhe_cor_borda).pack(side = tk.LEFT)
+tk.Button(frame, text = "Cor de preenchimento", command = escolhe_cor_preenchimento).pack(side = tk.LEFT)
 
 canvas = tk.Canvas(root, bg='white', width=600, height=600)
 canvas.pack()
