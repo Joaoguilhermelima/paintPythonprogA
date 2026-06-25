@@ -54,6 +54,8 @@ def atualiza_fim(event):
 root = tk.Tk()
 
 ferramenta = "linha"
+cor_borda = "black"
+cor_preenchimento = ""
 
 frame = tk.Frame(root)
 frame.pack()
