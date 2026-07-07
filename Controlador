@@ -1,0 +1,70 @@
+# PaintController.py
+from tkinter import colorchooser
+from Linha import Linha
+from Oval import Oval
+from Retangulo import Retangulo
+from MaoLivre import MaoLivre
+
+class PaintController:
+    def __init__(self):
+        self.ferramenta = "linha"
+        self.cor_borda = "black"
+        self.cor_preenchimento = ""
+        self.historico_figuras = []
+        self.objeto_atual = None
+        self.view = None
+
+    def set_view(self, view):
+        self.view = view
+
+    def set_ferramenta(self, nome_ferramenta):
+        self.ferramenta = nome_ferramenta
+
+    def escolher_cor_borda(self):
+        cor = colorchooser.askcolor(title="Cor da borda")[1]
+        if cor: self.cor_borda = cor
+
+    def escolher_cor_preenchimento(self):
+        cor = colorchooser.askcolor(title="Cor de preenchimento")[1]
+        if cor: self.cor_preenchimento = cor
+
+    def marca_inicio(self, event):
+        self.ini_x = event.x
+        self.ini_y = event.y
+        if self.ferramenta == "mao_livre":
+            self.objeto_atual = MaoLivre(self.ini_x, self.ini_y, cor_borda=self.cor_borda)
+
+    def update_figura(self, event):
+        self.view.canvas.delete("preview")
+        
+        if self.ferramenta in ["linha", "retangulo", "oval"]:
+            if self.ferramenta == "linha":
+                temp = Linha(self.ini_x, self.ini_y, event.x, event.y, cor_borda=self.cor_borda)
+            elif self.ferramenta == "retangulo":
+                temp = Retangulo(self.ini_x, self.ini_y, event.x, event.y, cor_borda=self.cor_borda, cor_preenchimento=self.cor_preenchimento)
+            elif self.ferramenta == "oval":
+                temp = Oval(self.ini_x, self.ini_y, event.x, event.y, cor_borda=self.cor_borda, cor_preenchimento=self.cor_preenchimento)
+            temp.desenhar(self.view.canvas, tags="preview")
+            
+        elif self.ferramenta == "mao_livre" and self.objeto_atual:
+            self.objeto_atual.adicionar_ponto(event.x, event.y)
+            self.objeto_atual.desenhar(self.view.canvas, tags="preview")
+
+    def atualiza_fim(self, event):
+        self.view.canvas.delete("preview")
+        novo = None
+        
+        if self.ferramenta in ["linha", "retangulo", "oval"]:
+            if self.ferramenta == "linha":
+                novo = Linha(self.ini_x, self.ini_y, event.x, event.y, cor_borda=self.cor_borda)
+            elif self.ferramenta == "retangulo":
+                novo = Retangulo(self.ini_x, self.ini_y, event.x, event.y, cor_borda=self.cor_borda, cor_preenchimento=self.cor_preenchimento)
+            elif self.ferramenta == "oval":
+                novo = Oval(self.ini_x, self.ini_y, event.x, event.y, cor_borda=self.cor_borda, cor_preenchimento=self.cor_preenchimento)
+            novo.desenhar(self.view.canvas)
+            self.historico_figuras.append(novo)
+            
+        elif self.ferramenta == "mao_livre" and self.objeto_atual:
+            self.objeto_atual.desenhar(self.view.canvas)
+            self.historico_figuras.append(self.objeto_atual)
+            self.objeto_atual = None
