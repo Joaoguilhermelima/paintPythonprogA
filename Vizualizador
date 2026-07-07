@@ -9,12 +9,11 @@ class PaintView:
         
         self.frame = tk.Frame(self.root)
         self.frame.pack()
-        
+
         tk.Button(self.frame, text="Linha", command=lambda: self.controller.set_ferramenta("linha")).pack(side=tk.LEFT)
         tk.Button(self.frame, text="Retângulo", command=lambda: self.controller.set_ferramenta("retangulo")).pack(side=tk.LEFT)
         tk.Button(self.frame, text="Oval", command=lambda: self.controller.set_ferramenta("oval")).pack(side=tk.LEFT)
         tk.Button(self.frame, text="Mão Livre", command=lambda: self.controller.set_ferramenta("mao_livre")).pack(side=tk.LEFT)
-        
         tk.Button(self.frame, text="Cor da Borda", command=self.controller.escolher_cor_borda).pack(side=tk.LEFT)
         tk.Button(self.frame, text="Preenchimento", command=self.controller.escolher_cor_preenchimento).pack(side=tk.LEFT)
         
