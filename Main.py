@@ -1,6 +1,21 @@
 
 import sys
 import os
+
+
+raiz = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+if raiz not in sys.path:
+    sys.path.insert(0, raiz)
+
+
+import tkinter as tk
+from tkinter import colorchooser
+
+from Controlador.Codigo import ControladorDesenho
+from Controlador.Estados import EstadoLinha, EstadoRetangulo, EstadoOval, EstadoMaoLivre
+
+
+
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 import tkinter as tk
 from tkinter import colorchooser
