@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import colorchooser
-from MaoLivre import MaoLivre
+from Modelo.MaoLivre import MaoLivre
 
 def seleciona_maolivre():
     global ferramenta
