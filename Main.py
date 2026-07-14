@@ -1,6 +1,11 @@
+
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 import tkinter as tk
 from tkinter import colorchooser
-
+from Controlador.Codigo import ControladorDesenho
+from Controlador.Estados import EstadoLinha, EstadoRetangulo, EstadoOval, EstadoMaoLi
 
 from Controlador.Codigo import ControladorDesenho 
 from Controlador.Estados import EstadoLinha, EstadoRetangulo, EstadoOval, EstadoMaoLivre
