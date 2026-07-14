@@ -8,7 +8,7 @@ from Controlador.Codigo import ControladorDesenho
 from Controlador.Estados import EstadoLinha, EstadoRetangulo, EstadoOval, EstadoMaoLi
 
 from Controlador.Codigo import ControladorDesenho 
-from Controlador.Estados import EstadoLinha, EstadoRetangulo, EstadoOval, EstadoMaoLivre
+from .Estados import EstadoLinha, EstadoRetangulo, EstadoOval, EstadoMaoLivre
 
 root = tk.Tk()
 root.title("Editor de Desenho")
