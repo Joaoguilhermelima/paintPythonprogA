@@ -1,3 +1,5 @@
+from abc import ABC, abstractmethod
+
 class Figura(ABC):
     def __init__(self, x1, y1, x2, y2, cor_borda="black", cor_preenchimento=""):
         self.x1 = x1
