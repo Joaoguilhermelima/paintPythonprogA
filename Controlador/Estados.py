@@ -1,4 +1,4 @@
-
+from abc import ABC, abstractmethod
 from Modelo.Linha import Linha
 from Modelo.Retangulo import Retangulo
 from Modelo.Oval import Oval
