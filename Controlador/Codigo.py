@@ -31,12 +31,20 @@ class ControladorDesenho:
     def escolhe_cor_borda(self):
         cor = colorchooser.askcolor(title="Escolha a cor da borda")[1]
         if cor:
-            self.cor_borda = cor
+            if self.figura_selecionada:
+                self.figura_selecionada.cor_borda = cor
+                self.atualizar_visualizador()
+            else:
+                self.cor_borda = cor
 
     def escolhe_cor_preenchimento(self):
         cor = colorchooser.askcolor(title="Escolha a cor de preenchimento")[1]
         if cor:
-            self.cor_preenchimento = cor
+            if self.figura_selecionada:
+                self.figura_selecionada.cor_preenchimento = cor
+                self.atualizar_visualizador()
+            else:
+                self.cor_preenchimento = cor
 
     def adicionar_figura(self, figura):
         self.figuras.append(figura)
