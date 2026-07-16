@@ -66,10 +66,14 @@ tk.Button(frame, text="Cor Preenchimento", command=controlador.escolhe_cor_preen
 tk.Button(frame, text="Salvar", command=controlador.salvar).pack(side=tk.LEFT)
 tk.Button(frame, text="Abrir", command=controlador.abrir).pack(side=tk.LEFT)
 tk.Button(frame, text="Selecionar", command=mudar_para_selecao).pack(side=tk.LEFT)
+tk.Button(frame, text="Frente", command=controlador.trazer_para_frente).pack(side=tk.LEFT)                                                                 )
+tk.Button(frame, text="Trás", command=controlador.enviar_para_tras).pack(side=tk.LEFT)
 
 canvas.bind("<ButtonPress-1>", lambda event: controlador.estado_atual.pressionar(controlador, event))
 canvas.bind("<B1-Motion>", lambda event: controlador.estado_atual.arrastar(controlador, event))
 canvas.bind("<ButtonRelease-1>", lambda event: controlador.estado_atual.soltar(controlador, event))
 root.bind("<Delete>", lambda event: controlador.apagar_selecionadas())
+root.bind("<Control-c>", lambda event: controlador.copiar())
+root.bind("<Control-v>", lambda event: controlador.colar())
 
 root.mainloop()

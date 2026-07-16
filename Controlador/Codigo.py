@@ -1,3 +1,4 @@
+import copy
 import json
 from tkinter import filedialog, colorchooser
 from Controlador.Estados import EstadoLinha, EstadoRetangulo, EstadoOval, EstadoMaoLivre
@@ -22,6 +23,8 @@ class ControladorDesenho:
 
         self.ultimo_x = 0
         self.ultimo_y = 0
+
+        self.area_transferencia = []
 
 
 
@@ -110,3 +113,32 @@ class ControladorDesenho:
                 self.figuras.remove(figura)
             self.figuras_selecionadas.clear()
             self.atualizar_visualizador()
+
+    def copiar(self):
+        self.area_transferencia = []
+        for figura in self.figuras_selecionadas:
+            self.area_transferencia.append(copy.deepcopy(figura))
+
+    def colar(self):
+        novas = []
+        for figura in self.area_transferencia:
+            copia = copy.deepcopy(figura)
+            copia.mover(20, 20)
+            self.figuras.append(copia)
+            novas.append(copia)
+        self.figuras_selecionadas = novas
+        self.atualizar_visualizador()
+
+    def trazer_para_frente(self):
+        for figura in self.figuras_selecionadas:
+            if figura in self.figuras:
+                self.figuras.remove(figura)
+                self.figuras.append(figura)
+        self.atualizar_visualizador()
+
+    def enviar_para_tras(self):
+        for figura in reversed(self.figuras_selecionadas):
+            if figura in self.figuras:
+                self.figuras.remove(figura)
+                self.figuras.insert(0, figura)
+        self.atualizar_visualizador()
