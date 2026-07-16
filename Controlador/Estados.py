@@ -83,9 +83,22 @@ class EstadoMaoLivre(EstadoFerramenta):
 class EstadoSelecao(EstadoFerramenta):
     def pressionar(self, app, event):
         app.selecionar_figura(event.x, event.y)
+        app.ultimo_x = event.x
+        app.ultimo_y = event.y
 
     def arrastar(self, app, event):
-        pass
+        if app.figura_selecionada is None:
+            return
+
+        dx = event.x - app.ultimo_x
+        dy = event.y - app.ultimo_y
+
+        app.figura_selecionada.mover(dx, dy)
+
+        app.ultimo_x = event.x
+        app.ultimo_y = event.y
+
+        app.atualizar_visualizador()
 
     def soltar(self, app, event):
         pass

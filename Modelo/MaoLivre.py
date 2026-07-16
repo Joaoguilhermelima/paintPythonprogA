@@ -30,3 +30,13 @@ class MaoLivre(Figura):
             obj.x1, obj.y1 = obj.pontos[0], obj.pontos[1]
             obj.x2, obj.y2 = obj.pontos[-2], obj.pontos[-1]
         return obj
+
+    def mover(self, dx, dy):
+        for i in range(0, len(self.pontos), 2):
+            self.pontos[i] += dx
+            self.pontos[i + 1] += dy
+        
+        self.x1 += dx
+        self.y1 += dy
+        self.x2 += dx
+        self.y2 += dy

@@ -20,6 +20,9 @@ class ControladorDesenho:
         self.mao_livre_ativa = None
         self.figura_selecionada = None
 
+        self.ultimo_x = 0
+        self.ultimo_y = 0
+
 
 
     def definir_estado(self, novo_estado):
