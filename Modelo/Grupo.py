@@ -76,7 +76,7 @@ class Grupo(Figura):
         from Modelo.Oval import Oval
         from Modelo.MaoLivre import MaoLivre
         
-        mapeamento = {
+        mapeamento = {        # Cria um dicionário que associa o nome em texto de cada figura (como "Retangulo") à sua classe Python real (Retangulo)
             "Linha": Linha,
             "Retangulo": Retangulo,
             "Oval": Oval,
@@ -84,11 +84,11 @@ class Grupo(Figura):
             "Grupo": Grupo
         }
         
-        figuras_reconstruidas = []
+        figuras_reconstruidas = []           # Percorre a lista de dados de todas as figuras que pertenciam àquele grupo
         for item in data["figuras"]:
             tipo = item.get("tipo")
             if tipo in mapeamento:
-                figuras_reconstruidas.append(mapeamento[tipo].from_dict(item))
+                figuras_reconstruidas.append(mapeamento[tipo].from_dict(item))       # Identifica o tipo de cada figura e chama o método .from_dict() da classe correta para recriá-la como um objeto Python real
                 
         grupo = Grupo(figuras_reconstruidas, cor_borda=data["cor_borda"], cor_preenchimento=data["cor_preenchimento"])
-        return grupo
+        return grupo  # Cria e retorna um novo objeto Grupo contendo todas as figuras reconstruídas e com as cores originais recuperadas
