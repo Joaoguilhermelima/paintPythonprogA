@@ -12,14 +12,15 @@ class ControladorDesenho:
         self.figuras = []
         self.estado_atual = EstadoLinha()
 
-        # Atributos de cor e estilo
         self.cor_borda = "black"
         self.cor_preenchimento = ""
 
-        # Auxiliares temporários
         self.ini_x = 0
         self.ini_y = 0
         self.mao_livre_ativa = None
+        self.figura_selecionada = None
+
+
 
     def definir_estado(self, novo_estado):
         self.estado_atual = novo_estado
@@ -71,4 +72,18 @@ class ControladorDesenho:
                     
                     self.figuras.append(mapeamento[tipo].from_dict(item))
             
+            self.atualizar_visualizador()
+
+    def selecionar_figura(self, x, y):
+        self.figura_selecionada = None
+
+        for figura in reversed(self.figuras):
+            if figura.contem(x, y):
+                self.figura_selecionada = figura
+                break
+
+    def apagar_selecionada(self):
+        if self.figura_selecionada:
+            self.figuras.remove(self.figura_selecionada)
+            self.figura_selecionada = None
             self.atualizar_visualizador()

@@ -79,3 +79,13 @@ class EstadoMaoLivre(EstadoFerramenta):
             app.mao_livre_ativa.adicionar_ponto(event.x, event.y)
             app.adicionar_figura(app.mao_livre_ativa)
             app.mao_livre_ativa = None
+
+class EstadoSelecao(EstadoFerramenta):
+    def pressionar(self, app, event):
+        app.selecionar_figura(event.x, event.y)
+
+    def arrastar(self, app, event):
+        pass
+
+    def soltar(self, app, event):
+        pass

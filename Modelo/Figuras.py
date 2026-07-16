@@ -21,3 +21,14 @@ class Figura(ABC):
     @abstractmethod
     def from_dict(data):
         raise NotImplementedError
+
+    def mover(self, dx, dy):
+        self.x1 += dx
+        self.y1 += dy
+        self.x2 += dx
+        self.y2 += dy
+
+    def contem(self, x, y):
+        margem = 5
+        return (min(self.x1, self.x2) - margem <= x <= max(self.x1, self.x2) + margem and
+            min(self.y1, self.y2) - margem <= y <= max(self.y1, self.y2) + margem)
