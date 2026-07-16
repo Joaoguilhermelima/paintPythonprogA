@@ -70,6 +70,6 @@ tk.Button(frame, text="Selecionar", command=mudar_para_selecao).pack(side=tk.LEF
 canvas.bind("<ButtonPress-1>", lambda event: controlador.estado_atual.pressionar(controlador, event))
 canvas.bind("<B1-Motion>", lambda event: controlador.estado_atual.arrastar(controlador, event))
 canvas.bind("<ButtonRelease-1>", lambda event: controlador.estado_atual.soltar(controlador, event))
-root.bind("<Delete>", lambda event: controlador.apagar_selecionada())
+root.bind("<Delete>", lambda event: controlador.apagar_selecionadas())
 
 root.mainloop()

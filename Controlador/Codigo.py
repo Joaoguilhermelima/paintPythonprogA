@@ -18,7 +18,7 @@ class ControladorDesenho:
         self.ini_x = 0
         self.ini_y = 0
         self.mao_livre_ativa = None
-        self.figura_selecionada = None
+        self.figuras_selecionadas = []
 
         self.ultimo_x = 0
         self.ultimo_y = 0
@@ -31,8 +31,9 @@ class ControladorDesenho:
     def escolhe_cor_borda(self):
         cor = colorchooser.askcolor(title="Escolha a cor da borda")[1]
         if cor:
-            if self.figura_selecionada:
-                self.figura_selecionada.cor_borda = cor
+            if self.figuras_selecionadas:
+                for figura in self.figuras_selecionadas:
+                    figura.cor_borda = cor
                 self.atualizar_visualizador()
             else:
                 self.cor_borda = cor
@@ -40,8 +41,9 @@ class ControladorDesenho:
     def escolhe_cor_preenchimento(self):
         cor = colorchooser.askcolor(title="Escolha a cor de preenchimento")[1]
         if cor:
-            if self.figura_selecionada:
-                self.figura_selecionada.cor_preenchimento = cor
+            if self.figuras_selecionadas:
+                for figura in self.figuras_selecionadas:
+                    figura.cor_preenchimento = cor
                 self.atualizar_visualizador()
             else:
                 self.cor_preenchimento = cor
@@ -85,16 +87,26 @@ class ControladorDesenho:
             
             self.atualizar_visualizador()
 
-    def selecionar_figura(self, x, y):
-        self.figura_selecionada = None
+    def selecionar_figura(self, x, y, adicionar = False):
+        figura_encontrada = None
 
         for figura in reversed(self.figuras):
             if figura.contem(x, y):
-                self.figura_selecionada = figura
+                figura_encontrada = figura
                 break
 
-    def apagar_selecionada(self):
-        if self.figura_selecionada:
-            self.figuras.remove(self.figura_selecionada)
-            self.figura_selecionada = None
+        if not adicionar:
+            self.figuras_selecionadas.clear()
+
+        if figura_encontrada:
+            if figura_encontrada not in self.figuras_selecionadas:
+                self.figuras_selecionadas.append(figura_encontrada)
+            elif adicionar:
+                self.figuras_selecionadas.remove(figura_encontrada)
+
+    def apagar_selecionadas(self):
+        if self.figuras_selecionadas:
+            for figura in self.figuras_selecionadas:
+                self.figuras.remove(figura)
+            self.figuras_selecionadas.clear()
             self.atualizar_visualizador()

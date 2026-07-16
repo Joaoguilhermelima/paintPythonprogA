@@ -82,18 +82,21 @@ class EstadoMaoLivre(EstadoFerramenta):
 
 class EstadoSelecao(EstadoFerramenta):
     def pressionar(self, app, event):
-        app.selecionar_figura(event.x, event.y)
+        adicionar = (event.state & 0x0001) != 0  # Verifica se a tecla Shift está pressionada
+
+        app.selecionar_figura(event.x, event.y, adicionar)
         app.ultimo_x = event.x
         app.ultimo_y = event.y
 
     def arrastar(self, app, event):
-        if app.figura_selecionada is None:
+        if app.figuras_selecionadas is None:
             return
 
         dx = event.x - app.ultimo_x
         dy = event.y - app.ultimo_y
 
-        app.figura_selecionada.mover(dx, dy)
+        for figura in app.figuras_selecionadas:
+            figura.mover(dx, dy)
 
         app.ultimo_x = event.x
         app.ultimo_y = event.y
@@ -102,3 +105,11 @@ class EstadoSelecao(EstadoFerramenta):
 
     def soltar(self, app, event):
         pass
+
+    def apagar_selecionadas(self):
+        for figura in self.figuras_selecionadas:
+            if figura in self.figuras:
+                self.figuras.remove(figura)
+
+        self.figuras_selecionadas.clear()
+        self.atualizar_visualizador()
